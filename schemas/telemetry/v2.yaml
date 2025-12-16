@@ -21,4 +21,4 @@ fields:
     repair: clamp
     default: 50.0
 
-ml_model: models/telemetry/v2/model.onnx
+ml_model: telemetry/v2/model.onnx

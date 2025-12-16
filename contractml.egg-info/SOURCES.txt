@@ -2,7 +2,11 @@ LICENSE
 README.md
 pyproject.toml
 app/__init__.py
+app/config.py
+app/logging_config.py
 app/main.py
+app/performance.py
+app/security.py
 contractml.egg-info/PKG-INFO
 contractml.egg-info/SOURCES.txt
 contractml.egg-info/dependency_links.txt
@@ -12,3 +16,6 @@ migrations/__init__.py
 migrations/telemetry_v1_to_v2.py
 models/__init__.py
 schemas/__init__.py
+tests/test_api.py
+tests/test_contracts.py
+tests/test_integration.py

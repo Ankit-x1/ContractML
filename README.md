@@ -34,13 +34,24 @@ graph TD
 ### Installation
 
 ```bash
-pip install -e .
+# Clone repository
+git clone https://github.com/Ankit-x1/ContractML.git
+cd ContractML
+
+# Setup environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -e ".[dev]"
+
+# Create test models
+python scripts/create_dummy_model.py
+python scripts/create_fraud_model.py
 ```
 
 ### Run Server
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### Make Prediction
@@ -71,6 +82,17 @@ Response:
     "drift_detected": false
   }
 }
+```
+
+### Docker Deployment
+
+```bash
+# Build and run
+docker build -t contractml .
+docker run -p 8000:8000 contractml
+
+# Or with docker-compose
+docker-compose up -d
 ```
 
 ## Contract Configuration
@@ -113,6 +135,12 @@ ml_model: models/telemetry/v2/model.onnx
 - **ML Integration**: ONNX model inference with automatic data preparation
 - **Migration Support**: Schema evolution between versions
 
+## Documentation
+
+- [API Documentation](docs/API.md) - Complete API reference
+- [Developer Guide](docs/DEVELOPER.md) - Architecture and development
+- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment
+
 ## Development
 
 ### Setup
@@ -126,7 +154,23 @@ pip install -e ".[dev]"
 ### Testing
 
 ```bash
+# Run all tests
 pytest
+
+# Run with coverage
+pytest --cov=app
+
+# Performance tests
+pytest tests/test_integration.py::TestPerformance
+```
+
+### Code Quality
+
+```bash
+# Linting and formatting
+ruff check .
+black .
+mypy app/
 ```
 
 ### Contract Validation

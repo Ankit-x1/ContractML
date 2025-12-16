@@ -28,7 +28,8 @@ class DynamicContract:
         # Load ML model if specified
         if "ml_model" in config:
             from app.ml.runtime import MLRuntime
-            self.ml_runtime = MLRuntime.load(config["ml_model"])
+            model_type = config.get("ml_model_type", None)
+            self.ml_runtime = MLRuntime.load(config["ml_model"], model_type)
     
     def _build_model(self):
         """Dynamically create Pydantic model from config."""
@@ -110,10 +111,20 @@ class DynamicContract:
         model.model_validator = classmethod(apply_rules)
         return model
     
-    def execute(self, data: Dict[str, Any]) -> ContractExecutionResult:
+    def execute(self, data: Dict[str, Any], target_version: Optional[str] = None) -> ContractExecutionResult:
         """Execute the full contract pipeline."""
-        # Validate and repair
-        validated = self.model(**data)
+        # Apply repairs first
+        repaired_data = data.copy()
+        for field_name, field_config in self.config.get("fields", {}).items():
+            if field_name in repaired_data and "repair" in field_config:
+                repaired_data[field_name] = RepairRule.apply(
+                    field_config["repair"],
+                    repaired_data[field_name],
+                    field_config
+                )
+        
+        # Validate repaired data
+        validated = self.model(**repaired_data)
         
         # Prepare ML inference
         predictions = None
@@ -127,7 +138,7 @@ class DynamicContract:
             predictions = self.ml_runtime.predict(input_data)
         
         # Check for drift
-        metadata = {"drift_detected": False}
+        metadata = {"drift_detected": False, "version": self.version}
         for field_name, field_config in self.config.get("fields", {}).items():
             if "drift" in field_config:
                 value = getattr(validated, field_name)
