@@ -18,4 +18,5 @@ models/__init__.py
 schemas/__init__.py
 tests/test_api.py
 tests/test_contracts.py
-tests/test_integration.py
+tests/test_migration.py
+tests/test_multimodel.py
