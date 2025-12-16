@@ -101,9 +101,9 @@ jobs:
         
     - name: Build package
       run: |
-        python -m build || true
+        python -m build
         
     - name: Test installation
       run: |
-        pip install dist/*.whl || true
-        python -c "from app.contracts.registry import ContractRegistry; print('Build successful')" || true
+        pip install dist/*.whl
+        python -c "from app.contracts.registry import ContractRegistry; print('Build successful')"
