@@ -1,0 +1,24 @@
+domain: telemetry
+version: v2
+description: Enhanced telemetry with repair and drift detection
+
+fields:
+  temp_c:
+    type: float
+    min: -40
+    max: 125
+    repair: clamp
+    drift:
+      type: mean_shift
+      expected_mean: 22.0
+      threshold: 5.0
+    description: Temperature in Celsius
+
+  humidity:
+    type: float
+    min: 0
+    max: 100
+    repair: clamp
+    default: 50.0
+
+ml_model: models/telemetry/v2/model.onnx

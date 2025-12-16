@@ -1,0 +1,47 @@
+[project]
+name = "contractml"
+version = "0.1.0"
+description = "Runtime-executable Pydantic contracts for ML inference"
+authors = [
+    {name = "Ankit Karki", email = "karkiankit101@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.104.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "onnxruntime>=1.16.0",
+    "pyyaml>=6.0",
+    "structlog>=24.1.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "httpx>=0.25.0",
+    "mypy>=1.7.0",
+    "ruff>=0.1.0",
+    "black>=23.0.0",
+    "scikit-learn>=1.3.0",
+    "skl2onnx>=1.15.0",
+]
+
+[build-system]
+requires = ["setuptools>=65.5.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app", "models", "schemas", "migrations"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+select = ["E", "F", "I", "B", "W", "UP"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310']

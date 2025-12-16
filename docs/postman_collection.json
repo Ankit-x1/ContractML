@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "ContractML API",
+    "description": "Runtime-executable Pydantic contracts for ML inference"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8000/health"
+      }
+    },
+    {
+      "name": "Telemetry v2 - Normal Data",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8000/predict/telemetry/v2",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"temp_c\": 25.0,\n  \"humidity\": 60.0\n}"
+        }
+      }
+    },
+    {
+      "name": "Telemetry v2 - Out of Range (Auto-Repair)",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8000/predict/telemetry/v2",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"temp_c\": -50.0,\n  \"humidity\": 110.0\n}"
+        }
+      }
+    },
+    {
+      "name": "Telemetry v2 - Missing Field (Default)",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8000/predict/telemetry/v2",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"temp_c\": 150.0\n}"
+        }
+      }
+    }
+  ]
+}

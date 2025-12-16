@@ -1,0 +1,43 @@
+domain: fraud
+version: v1
+description: Real-time fraud detection for financial transactions
+
+fields:
+  transaction_amount:
+    type: float
+    min: 0
+    max: 100000
+    repair: clamp
+    drift:
+      type: statistical
+      window_size: 100
+      threshold: 2.0
+    description: Transaction amount in USD
+
+  transaction_time:
+    type: int
+    min: 0
+    max: 86400
+    description: Seconds since midnight
+
+  merchant_category:
+    type: str
+    validation: pattern
+    pattern: "^[A-Za-z0-9_]+$"
+    description: Merchant category code
+
+  user_age:
+    type: int
+    min: 18
+    max: 100
+    repair: clamp
+    default: 30
+
+  risk_score:
+    type: float
+    min: 0
+    max: 1
+    repair: clamp
+    description: Pre-computed risk score
+
+ml_model: models/fraud/v1/model.onnx

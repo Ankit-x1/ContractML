@@ -1,0 +1,10 @@
+domain: telemetry
+version: v1
+description: Simple temperature telemetry
+
+fields:
+  temperature:
+    type: float
+    min: -20
+    max: 100
+    description: Temperature in Celsius

@@ -1,0 +1,36 @@
+Metadata-Version: 2.4
+Name: contractml
+Version: 0.1.0
+Summary: Runtime-executable Pydantic contracts for ML inference
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi>=0.104.0
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: pydantic-settings>=2.1.0
+Requires-Dist: onnxruntime>=1.16.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: structlog>=24.1.0
+Requires-Dist: numpy>=1.24.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Dynamic: license-file
+
+# ContractML
+
+Runtime-executable Pydantic contracts for ML inference.
+
+## The One Thing
+
+This system loads **versioned Pydantic contracts at runtime** and executes them as first-class domain logic, including validation, repair, migration, and ML inference — without hardcoded schemas.
+
+## Quick Start
+
+```python
+from app.contracts.registry import ContractRegistry
+
+# Load contract dynamically
+contract = ContractRegistry.load("telemetry", "v2")
+
+# Execute: validate → repair → migrate → infer
+result = contract.execute(payload)
