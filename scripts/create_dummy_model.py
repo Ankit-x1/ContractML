@@ -2,6 +2,10 @@
 import numpy as np
 import onnx
 from onnx import helper, TensorProto
+from pathlib import Path
+
+# Create directories
+Path("models/telemetry/v2").mkdir(parents=True, exist_ok=True)
 
 # Create a simple model: y = 2x + 1
 input = helper.make_tensor_value_info('input', TensorProto.FLOAT, [1, 2])
@@ -38,3 +42,4 @@ model = helper.make_model(graph, producer_name='contractml')
 
 # Save
 onnx.save(model, 'models/telemetry/v2/model.onnx')
+print("Dummy ONNX model created at models/telemetry/v2/model.onnx")
