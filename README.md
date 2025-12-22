@@ -34,16 +34,14 @@ graph TD
 ### Installation
 
 ```bash
-# Clone repository
 git clone https://github.com/Ankit-x1/ContractML.git
 cd ContractML
 
-# Setup environment
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate  
 pip install -e ".[dev]"
 
-# Create test models
+#Test modes
 python scripts/create_dummy_model.py
 python scripts/create_fraud_model.py
 ```
@@ -87,11 +85,10 @@ Response:
 ### Docker Deployment
 
 ```bash
-# Build and run
 docker build -t contractml .
 docker run -p 8000:8000 contractml
 
-# Or with docker-compose
+#or
 docker-compose up -d
 ```
 
@@ -154,20 +151,16 @@ pip install -e ".[dev]"
 ### Testing
 
 ```bash
-# Run all tests
 pytest
 
-# Run with coverage
 pytest --cov=app
 
-# Performance tests
 pytest tests/test_integration.py::TestPerformance
 ```
 
 ### Code Quality
 
 ```bash
-# Linting and formatting
 ruff check .
 black .
 mypy app/
