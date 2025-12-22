@@ -2,7 +2,6 @@
 import sys
 from pathlib import Path
 
-# Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.contracts.registry import ContractRegistry
@@ -15,9 +14,9 @@ def test_telemetry():
     
     # Test cases
     test_cases = [
-        {"temp_c": 25.0, "humidity": 60.0},  # Normal
-        {"temp_c": -50.0, "humidity": 110.0},  # Out of range (should clamp)
-        {"temp_c": 150.0},  # Missing humidity (should use default)
+        {"temp_c": 25.0, "humidity": 60.0}, 
+        {"temp_c": -50.0, "humidity": 110.0}, 
+        {"temp_c": 150.0},  
     ]
     
     for i, data in enumerate(test_cases):
